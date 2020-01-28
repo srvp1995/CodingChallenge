@@ -1,15 +1,30 @@
 package com.book.room.demo.model;
 
+import io.swagger.annotations.ApiModel;
+import io.swagger.annotations.ApiModelProperty;
+
 import java.util.Date;
 import java.util.Objects;
 
+@ApiModel
 public class User {
 
+    @ApiModelProperty(value = "Auto Generated Id", hidden = true)
     private long id;
+
+    @ApiModelProperty(value = "First Name of User")
     private String firstName;
+
+    @ApiModelProperty(value = "Last Name of User")
     private String lastName;
+
+    @ApiModelProperty(value = "Date of Birth of User", example = "YYYY-MM-DD")
     private Date dob;
+
+    @ApiModelProperty(value = "Email Id of User", example = "email@email.com")
     private String email;
+
+    @ApiModelProperty(value = "Password for User")
     private String password;
 
     public long getId() {
