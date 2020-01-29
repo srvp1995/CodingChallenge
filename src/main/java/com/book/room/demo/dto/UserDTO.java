@@ -1,36 +1,35 @@
-package com.book.room.demo.model;
+package com.book.room.demo.dto;
 
-import io.swagger.annotations.ApiModel;
-import io.swagger.annotations.ApiModelProperty;
-
+import javax.persistence.*;
 import java.util.Date;
 import java.util.Objects;
 
-@ApiModel
-public class User {
-
-    @ApiModelProperty(value = "Auto Generated Id", hidden = true)
+@Entity
+@Table(name="User")
+public class UserDTO {
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
 
-    @ApiModelProperty(value = "First Name of User")
+    @Column(name="first_name")
     private String firstName;
 
-    @ApiModelProperty(value = "Last Name of User")
+    @Column(name="last_name")
     private String lastName;
 
-    @ApiModelProperty(value = "Date of Birth of User", example = "YYYY-MM-DD")
+    @Column(name="dob")
     private Date dob;
 
-    @ApiModelProperty(value = "Email Id of User", example = "email@email.com")
+    @Column(name="email")
     private String email;
 
-    @ApiModelProperty(value = "Password for User")
+    @Column(name="password")
     private String password;
 
-    public User() {
+    public UserDTO() {
     }
 
-    public User(long id, String firstName, String lastName, Date dob, String email, String password) {
+    public UserDTO(long id, String firstName, String lastName, Date dob, String email, String password) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -91,17 +90,29 @@ public class User {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        User user = (User) o;
-        return id == user.id &&
-                Objects.equals(firstName, user.firstName) &&
-                Objects.equals(lastName, user.lastName) &&
-                Objects.equals(dob, user.dob) &&
-                Objects.equals(email, user.email) &&
-                Objects.equals(password, user.password);
+        UserDTO userDTO = (UserDTO) o;
+        return id == userDTO.id &&
+                Objects.equals(firstName, userDTO.firstName) &&
+                Objects.equals(lastName, userDTO.lastName) &&
+                Objects.equals(dob, userDTO.dob) &&
+                Objects.equals(email, userDTO.email) &&
+                Objects.equals(password, userDTO.password);
     }
 
     @Override
     public int hashCode() {
         return Objects.hash(id, firstName, lastName, dob, email, password);
+    }
+
+    @Override
+    public String toString() {
+        return "UserDTO{" +
+                "id=" + id +
+                ", firstName='" + firstName + '\'' +
+                ", lastName='" + lastName + '\'' +
+                ", dob=" + dob +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                '}';
     }
 }
