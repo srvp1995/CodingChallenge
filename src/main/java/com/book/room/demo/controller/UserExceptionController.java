@@ -9,29 +9,37 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 
-@RestControllerAdvice(basePackages={"com.book.room.demo"})
+@RestControllerAdvice
 public class UserExceptionController  {
 
-    @ExceptionHandler(value = { PasswordException.class})
+    //Exception Handler method when password does not match the required criteria
+    @ExceptionHandler(PasswordException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ErrorResponse badRequest(PasswordException ex)
+    public ErrorResponse badRequest( PasswordException ex)
     {
         return new ErrorResponse(400, ex.getMessage());
     }
 
-    @ExceptionHandler(value = { UserExistsException.class})
+    //Exception Handler method when User already exists in Database
+    @ExceptionHandler(UserExistsException.class)
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    public ErrorResponse badRequest(UserExistsException ex)
+    public ErrorResponse badRequest( UserExistsException ex)
     {
         return new ErrorResponse(400, ex.getMessage());
     }
 
-    @ExceptionHandler(value = { UserNotFoundException.class })
+    //Exception Handler method when User is not found in Database
+    @ExceptionHandler(UserNotFoundException.class)
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    public ErrorResponse unKnownException(UserNotFoundException ex)
+    public ErrorResponse notFoundException(UserNotFoundException ex)
     {
-
         return new ErrorResponse(404, ex.getMessage());
     }
 
+    //Exception Handler method to handle the generic exceptions
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    public ErrorResponse genericException(Exception ex)
+    {
+        return new ErrorResponse(500, ex.getMessage());
+    }
 }

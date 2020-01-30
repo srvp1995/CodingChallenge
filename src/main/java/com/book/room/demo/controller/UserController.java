@@ -17,9 +17,11 @@ import org.springframework.web.bind.annotation.*;
 @Api(value = "Room Booking Management System", description = "Operations on User")
 public class UserController {
 
+    //Inject the Service Class
     @Autowired
     private UserService userService;
 
+    //POST endpoint to add new Customer to the System
     @ApiOperation(value = "Add new Customer to system")
     @ApiResponses( value = {
             @ApiResponse(code = 201, message = "Successfully created a new User"),
@@ -27,25 +29,14 @@ public class UserController {
             @ApiResponse(code = 500, message = "Error in Service")
     })
     @PostMapping("/customer")
-    public ResponseEntity addUser(@RequestBody User user){
-        try{
+    public ResponseEntity addUser(@RequestBody User user) {
             if(user.getPassword().length()>10)
                 throw new PasswordException("Password should not exceed 10 characters");
             userService.addUser(user);
             return new ResponseEntity(HttpStatus.CREATED);
-        }
-       /* catch(PasswordException  p){
-            return ResponseEntity.badRequest().body(p.toString());
-        }
-        catch (UserExistsException e){
-            return ResponseEntity.badRequest().body(e.toString());
-        }*/
-        catch(Exception e){
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error in Service");
-        }
-
     }
 
+    //GET endpoint to retrieve Customer from system using ID
     @ApiOperation(value = "Retrieve Customer from system")
     @ApiResponses( value = {
             @ApiResponse(code = 200, message = "Successfully retrieved new User"),
@@ -53,16 +44,8 @@ public class UserController {
             @ApiResponse(code = 500, message = "Error in Service")
     })
     @GetMapping("/customer/{id}")
-    public ResponseEntity getUsers(@PathVariable String id){
-
-        try{
-
+    public ResponseEntity getUser(@PathVariable String id){
             User user = userService.getUser(Long.parseLong(id));
             return ResponseEntity.ok(user);
-        }
-
-        catch(Exception e){
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Error in Service");
-        }
     }
 }

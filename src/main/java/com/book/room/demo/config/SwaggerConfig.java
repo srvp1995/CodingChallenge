@@ -17,8 +17,6 @@ import java.util.Set;
 @EnableSwagger2
 public class SwaggerConfig {
 
-
-
     @Bean
     public Docket api() {
         Set<String> responseDataType = new HashSet<String>();

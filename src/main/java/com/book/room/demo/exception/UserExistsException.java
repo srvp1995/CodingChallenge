@@ -1,6 +1,6 @@
 package com.book.room.demo.exception;
 
-public class UserExistsException extends Exception {
+public class UserExistsException extends RuntimeException {
 
     public UserExistsException(String message){
         super(message);
